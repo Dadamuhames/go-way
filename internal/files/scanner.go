@@ -1,6 +1,7 @@
 package files
 
 import (
+	"fmt"
 	"io/fs"
 	"path/filepath"
 	"regexp"
@@ -15,6 +16,9 @@ func GetScriptList() ([]MigrationScript, []MigrationScript) {
 	migrationsRelativeDir := getMigrationDir()
 
 	filepath.WalkDir(migrationsRelativeDir, func(path string, d fs.DirEntry, err error) error {
+
+		fmt.Printf("Discovered file: %s\n", path)
+
 		filePath := filepath.Base(path)
 
 		if d != nil && !d.IsDir() && r.MatchString(filePath) {
