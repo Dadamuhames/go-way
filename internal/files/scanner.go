@@ -4,7 +4,6 @@ import (
 	"io/fs"
 	"path/filepath"
 	"regexp"
-	"strings"
 )
 
 func GetScriptList() ([]MigrationScript, []MigrationScript) {
@@ -16,7 +15,7 @@ func GetScriptList() ([]MigrationScript, []MigrationScript) {
 	migrationsRelativeDir := getMigrationDir()
 
 	filepath.WalkDir(migrationsRelativeDir, func(path string, d fs.DirEntry, err error) error {
-		filePath := strings.Replace(path, MIGRATION_DIR, "", 1)
+		filePath := filepath.Base(path)
 
 		if d != nil && !d.IsDir() && r.MatchString(filePath) {
 			err, script := buildMigration(path)

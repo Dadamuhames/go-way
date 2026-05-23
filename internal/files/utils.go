@@ -11,7 +11,7 @@ func buildMigration(path string) (error, *MigrationScript) {
 	version := extractVersion(path)
 	description := extractDescription(path)
 
-	filePath := strings.Replace(path, MIGRATION_DIR, "", 1)
+	filePath := filepath.Base(path)
 
 	return nil, &MigrationScript{
 		Type:        string(filePath[0]),
