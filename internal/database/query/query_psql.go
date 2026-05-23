@@ -1,7 +1,7 @@
 package query
 
 var CREATE_SCHEMA_HISTORY_TABLE_PSQL = `CREATE TABLE IF NOT EXISTS goway_schema_history (
-		id VARCHER(36) PRIMARY KEY DEFAULT gen_random_uuid(),
+		id VARCHAR(36) PRIMARY KEY DEFAULT gen_random_uuid(),
 		type VARCHAR(2) NOT NULL,
 		version VARCHAR(50) NOT NULL,
 		description VARCHAR(255) NOT NULL,

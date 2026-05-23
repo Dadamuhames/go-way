@@ -57,7 +57,7 @@ func runVersionedMigrations(
 		content, err = os.ReadFile(script.Script)
 
 		if err != nil {
-			return fmt.Errorf("Migration Error: %v", err)
+			return fmt.Errorf("Migration Error: %v\n", err)
 		}
 
 		checksum := calculateChecksum(content)
@@ -71,7 +71,7 @@ func runVersionedMigrations(
 				return fmt.Errorf("Migration Error: %v", err)
 			}
 
-			fmt.Printf("Migration applied: %s", script.Script)
+			fmt.Printf("Migration applied: %s\n", script.Script)
 
 		} else {
 			if checksum != storedMigration.Checksum {
@@ -103,7 +103,7 @@ func runRepeatableMigrations(
 			migration := mapMigration(&script, checksum, success)
 			err = database.StoreMigration(db, *migration)
 
-			fmt.Printf("Migration applied: %s", script.Script)
+			fmt.Printf("Migration applied: %s\n", script.Script)
 
 		} else {
 			if checksum != storedMigration.Checksum {
@@ -111,7 +111,7 @@ func runRepeatableMigrations(
 				migration := mapMigration(&script, checksum, success)
 				err = database.UpdateMigration(db, *migration)
 
-				fmt.Printf("Migration applied: %s", script.Script)
+				fmt.Printf("Migration applied: %s\n", script.Script)
 			}
 		}
 	}
