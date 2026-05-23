@@ -71,6 +71,8 @@ func runVersionedMigrations(
 				return fmt.Errorf("Migration Error: %v", err)
 			}
 
+			fmt.Printf("Migration applied: %s", script.Script)
+
 		} else {
 			if checksum != storedMigration.Checksum {
 				return fmt.Errorf("Migration checksum not matching")
@@ -101,11 +103,15 @@ func runRepeatableMigrations(
 			migration := mapMigration(&script, checksum, success)
 			err = database.StoreMigration(db, *migration)
 
+			fmt.Printf("Migration applied: %s", script.Script)
+
 		} else {
 			if checksum != storedMigration.Checksum {
 				success := runMigration(db, content)
 				migration := mapMigration(&script, checksum, success)
 				err = database.UpdateMigration(db, *migration)
+
+				fmt.Printf("Migration applied: %s", script.Script)
 			}
 		}
 	}
