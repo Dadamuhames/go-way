@@ -8,10 +8,10 @@ import (
 )
 
 func buildMigration(path string) (error, *MigrationScript) {
-	version := extractVersion(path)
-	description := extractDescription(path)
-
 	filePath := filepath.Base(path)
+
+	version := extractVersion(filePath)
+	description := extractDescription(filePath)
 
 	return nil, &MigrationScript{
 		Type:        string(filePath[0]),
@@ -21,13 +21,12 @@ func buildMigration(path string) (error, *MigrationScript) {
 	}
 }
 
-func extractVersion(path string) string {
-	filename := filepath.Base(path)
+func extractVersion(filename string) string {
 	return strings.Split(filename, "__")[0]
 }
 
-func extractDescription(path string) string {
-	description := strings.ReplaceAll(strings.Split(path, "__")[1], "_", " ")
+func extractDescription(filename string) string {
+	description := strings.ReplaceAll(strings.Split(filename, "__")[1], "_", " ")
 	return strings.ReplaceAll(description, ".sql", "")
 }
 

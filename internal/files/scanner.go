@@ -22,7 +22,12 @@ func GetScriptList() ([]MigrationScript, []MigrationScript) {
 		filePath := filepath.Base(path)
 
 		if d != nil && !d.IsDir() && r.MatchString(filePath) {
+
+			fmt.Printf("Discovered file matches: %s\n", filePath)
+
 			err, script := buildMigration(path)
+
+			fmt.Printf("Script for file: %s\n", script)
 
 			if err != nil {
 				return err
