@@ -1,5 +1,7 @@
 
 resource/
+docker-compose.yml
+go-way
 
 # Binaries for programs and plugins
 *.exe

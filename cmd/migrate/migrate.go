@@ -1,7 +1,8 @@
-package command
+package main
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/Dadamuhames/go-way/internal/database"
 	"github.com/Dadamuhames/go-way/migrate"
@@ -13,14 +14,16 @@ func MigrationCommand() *cobra.Command {
 		Use:   "migrate",
 		Short: "Applying migrations",
 		Run: func(cmd *cobra.Command, args []string) {
-
 			dbServer := database.New()
 
-			err := migrate.Migrate(dbServer.GetInstance())
+			db := dbServer.GetInstance()
+
+			defer db.Close()
+
+			err := migrate.Migrate(db)
 
 			if err != nil {
-				fmt.Printf("Migration error: %v", err)
-				return
+				log.Fatal(err)
 			}
 
 			fmt.Println("Migrations applied!")
