@@ -1,7 +1,6 @@
 package files
 
 import (
-	"fmt"
 	"io/fs"
 	"path/filepath"
 	"regexp"
@@ -14,7 +13,7 @@ func GetScriptList() ([]MigrationScript, []MigrationScript) {
 
 	r, _ := regexp.Compile(`^[VR][0-9]*__.*\.sql$`)
 
-	migrationsRelativeDir := fmt.Sprintf("./%s", MIGRATION_DIR)
+	migrationsRelativeDir := getMigrationDir()
 
 	filepath.WalkDir(migrationsRelativeDir, func(path string, d fs.DirEntry, err error) error {
 		filePath := strings.Replace(path, MIGRATION_DIR, "", 1)
